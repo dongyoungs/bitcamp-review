@@ -10,45 +10,60 @@ public class App {
 
     // 키보드 스케너 준비
     Scanner scanner = new Scanner(System.in);
+    int userId = 1;
+    int length = 0;
 
-    final int SIZE = 2;
+    final int SIZE = 100;
     int[] no = new int[SIZE];
     String[] name = new String[SIZE];
-    int[] age = new int[SIZE];
+    String[] email = new String[SIZE];
     char[] gender = new char[SIZE];
-    boolean[] working = new boolean[SIZE];
-    float[] leftEye = new float[SIZE];
-    float[] rightEye = new float[SIZE];
 
     for (int i = 0; i < SIZE; i++) {
       System.out.print("번호? ");
       no[i] = scanner.nextInt();
-      System.out.print("이름? ");
+      System.out.print("이름 ?");
       name[i] = scanner.next();
-      System.out.print("나이 ?");
-      age[i] = scanner.nextInt();
+      System.out.print("이메일? ");
+      email[i] = scanner.next();
 
-      System.out.print("재직중(true/false)? ");
-      working[i] = scanner.nextBoolean();
+      loop: while (true) {
+        System.out.println("성별 ");
+        System.out.println("1. 남자 ");
+        System.out.println("2. 여자 ");
+        System.out.print("> ");
+        String genderString = scanner.next();
 
-      System.out.print("성별(남자:M, 여자:W)? ");
-      String str = scanner.next();
-      gender[i] = str.charAt(0);
+        switch (genderString) {
+          case "1":
+            gender[i] = 'M';
+            break loop;
+          case "2":
+            gender[i] = 'W';
+            break loop;
+          default:
+            System.out.println("잘못된 번호입니다");
+        }
+      }
+      no[i] = userId++;
+      length++;
 
-      System.out.print("시력(왼쪽, 오른쪽)? ");
-      leftEye[i] = scanner.nextFloat();
-      rightEye[i] = scanner.nextFloat();
+      System.out.print("계속하시겠습니까?(Y/n) ");
+      scanner.nextLine();
+      String response = scanner.nextLine();
+      if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
+        break;
+      }
     }
     System.out.println("---------------------------------");
 
-    for (int i = 0; i < SIZE; i++) {
-      System.out.printf("번호: %d\n", no[i]);
-      System.out.printf("이름: %s\n", name[i]);
-      System.out.printf("나이: %d\n", age[i]);
-      System.out.printf("재직자: %b\n", working[i]);
-      System.out.printf("성별(남자(M), 여자(W),: %c\n", gender[i]);
-      System.out.printf("좌우시력: %.1f,%.1f\n", leftEye[i], rightEye[i]);
+    System.out.println("번호, 이름, 이메일, 성별");
+    System.out.println("---------------------------------");
+
+    for (int i = 0; i < length; i++) {
+      System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
     }
+    scanner.close();
 
   }
 }
